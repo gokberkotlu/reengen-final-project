@@ -1,5 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const authRoutes = require('./routes/authRoutes');
+
 require('dotenv').config();
 
 const app = express();
@@ -15,3 +17,5 @@ mongoose.connect(process.env.MONGODBURI, { useNewUrlParser: true, useUnifiedTopo
 app.get('/', (req, res) => {
     res.send('TEST');
 });
+
+app.use(authRoutes);
