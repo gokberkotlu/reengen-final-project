@@ -1,0 +1,18 @@
+{
+  "devDependencies": {
+    "@commitlint/cli": "^15.0.0",
+    "commitizen": "^4.2.4",
+    "commitlint-config-gitmoji": "^2.2.5",
+    "cz-customizable": "^6.3.0",
+    "husky": "^7.0.0"
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "cm": "cz"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-customizable"
+    }
+  }
+}
