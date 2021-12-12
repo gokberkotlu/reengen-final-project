@@ -1,13 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 const app = express();
 
 app.use(express.json());
 
-const mongodbURI = 'mongodb+srv://admin_factory:test1234@nodejs.htzvf.mongodb.net/factory-dashboard?retryWrites=true&w=majority';
-mongoose.connect(mongodbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-.then((result) => app.listen(3000))
+mongoose.connect(process.env.MONGODBURI, { useNewUrlParser: true, useUnifiedTopology: true })
+.then((result) => app.listen(process.env.PORT))
 .catch((err) => console.log(err));
 
 app.get('/', (req, res) => {
