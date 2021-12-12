@@ -1,11 +1,66 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
-const maxAge = 3 * 24 * 60 * 60;
+const jwt_secret = 'factory dashboard secret';
+
+const maxAge = 3 * 24 * 60 * 60; // in seconds
+
 const createToken = (id) => {
-    return jwt.sign({ id }, 'factory dashboard secret', {
+    return jwt.sign({ id }, jwt_secret, {
         expiresIn: maxAge // in seconds
     });
+}
+
+const checkToken_get = async (req, res) => {
+    const token = req.body.token;
+    if(token) {
+        jwt.verify(token, jwt_secret, async (err, decodedToken) => {
+            if(err) {
+                res.status(400).json({
+                    data: {
+                        error: "Token is not verified"
+                    }
+                });
+            } else {
+                let user = await User.findById(decodedToken.id);
+                res.status(200).json({ data: {
+                        authority: user.authority,
+                        name: user.name,
+                        email: user.email
+                    }
+                });
+            }
+        })
+    } else {
+        res.status(201).json({
+            data: {
+                info: "Token not send"
+            }
+        });
+    }
+}
+
+const login_post = async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const user = await User.login(email, password);
+        const token = createToken(user._id);
+        res.status(200).json({ data: {
+                token,
+                expiresIn: maxAge * 1000, // in milliseconds
+                authority: user.authority,
+                name: user.name,
+                email: user.email
+            }
+        });
+    } catch(err) {
+        res.status(400).json({
+            data: {
+                error: "Wrong email or password"
+            }
+        });
+    }
 }
 
 const signup_post = async (req, res) => {
@@ -15,12 +70,27 @@ const signup_post = async (req, res) => {
     try {
         const user = await User.create({ name, email, password, authority });
         const token = createToken(user._id);
-        res.status(201).json({ token });
+        res.status(200).json({ token });
     } catch(err) {
-        res.status(400).json({ errors: err });
+        // 11000 unique error
+        let errorResponse = {
+            data: {
+                error: ""
+            }
+        }
+
+        if(err?.code === 11000) {
+            errorResponse.data.error = 'That email is already registered';
+        } else {
+            errorResponse.data.error = 'Something went wrong while registration';
+        }
+
+        res.status(400).json(errorResponse);
     }
 }
 
 module.exports = {
+    checkToken_get,
+    login_post,
     signup_post
 }
