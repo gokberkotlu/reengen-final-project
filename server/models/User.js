@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { isEmail, isAlphanumeric } = require('validator');
+const { isEmail } = require('validator');
 const bcrypt = require('bcrypt');
 
 const userSchema = mongoose.Schema({
@@ -7,7 +7,13 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [true, 'Please enter a name'],
         minLength: [8, 'Minimum name length is 8 characters'],
-        // validate: [!isAlphanumeric, 'Name cannot contain numeric characters']
+        validate(value) {
+            // only letter and white space(includes tr letters)
+            let regex = /^[a-zA-ZiİçÇşŞğĞÜüÖö\s]*$/;
+            if(!regex.test(value)) {
+                throw new Error('Name cannot contain numeric and special characters');
+            }
+        }
     },
     email: {
         type: String,
@@ -18,7 +24,23 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         required: [true, 'Please enter a password'],
-        minLength: [8, 'Minimum password length is 8 characters']
+        minLength: [8, 'Minimum password length is 8 characters'],
+        validate(value) {
+            let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+            if(!regex.test(value)) {
+                throw new Error('Password must have at least one uppercase letter, one lowercase letter and one number');
+            }
+        }
+    },
+    authority: {
+        type: String,
+        required: [true, 'Choose an authority'],
+        validate(value) {
+            let authorities = ["admin", "editor"];
+            if(!authorities.includes(value)) {
+                throw new Error('Authority can only be admin or editor');
+            }
+        }
     }
 }, { timestamps: true });
 
