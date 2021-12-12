@@ -46,7 +46,6 @@ const userSchema = mongoose.Schema({
 
 // fire a function before doc saved to db
 userSchema.pre('save', async function(next) {
-    // user'a erişmek için this anahtar kelimesi kullanılır
     const salt = await bcrypt.genSalt();
     this.password = await bcrypt.hash(this.password, salt);
     next();
@@ -60,7 +59,7 @@ userSchema.statics.login = async function(email, password) {
     });
 
     if(user) {
-        // kıyaslamadan true ya da false gelecek
+        // compare will return true or false
         const auth = await bcrypt.compare(password, user.password);
         if(auth) {
             return user;
