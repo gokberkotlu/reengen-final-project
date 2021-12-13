@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
 const accountEditRoutes = require('./routes/accountEditRoutes');
+const dashboardRoutes = require('./routes/dashboardRoutes');
 
 require('dotenv').config();
 
@@ -22,3 +23,5 @@ app.get('/', (req, res) => {
 app.use(authRoutes);
 
 app.use(accountEditRoutes);
+
+app.use(dashboardRoutes);
