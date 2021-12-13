@@ -17,9 +17,7 @@ const checkToken_get = async (req, res) => {
         jwt.verify(token, jwt_secret, async (err, decodedToken) => {
             if(err) {
                 res.status(400).json({
-                    data: {
-                        error: "Token is not verified"
-                    }
+                    error: "Token is not verified"
                 });
             } else {
                 let user = await User.findById(decodedToken.id);
@@ -33,9 +31,7 @@ const checkToken_get = async (req, res) => {
         })
     } else {
         res.status(201).json({
-            data: {
-                info: "Token not send"
-            }
+            info: "Token not send"
         });
     }
 }
@@ -56,9 +52,7 @@ const login_post = async (req, res) => {
         });
     } catch(err) {
         res.status(400).json({
-            data: {
-                error: "Wrong email or password"
-            }
+            error: "Wrong email or password"
         });
     }
 }
@@ -74,15 +68,13 @@ const signup_post = async (req, res) => {
     } catch(err) {
         // 11000 unique error
         let errorResponse = {
-            data: {
-                error: ""
-            }
+            error: ""
         }
 
         if(err?.code === 11000) {
-            errorResponse.data.error = 'That email is already registered';
+            errorResponse.error = 'That email is already registered';
         } else {
-            errorResponse.data.error = 'Something went wrong while registration';
+            errorResponse.error = 'Something went wrong while registration';
         }
 
         res.status(400).json(errorResponse);
