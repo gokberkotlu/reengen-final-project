@@ -59,7 +59,7 @@ import axios from 'axios'
         axios.get(`${serverUrl}/list-factories`)
         .then(res => {
             console.log(res);
-            this.items = res.data.data;
+            this.items = res.data;
         });
     }
   }

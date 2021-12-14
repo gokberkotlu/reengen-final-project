@@ -9,9 +9,7 @@ const listFactories_get = async (req, res) => {
     }
     try {
         let result = await client.query(`SELECT * FROM public.factories ORDER BY ${orderType} ASC`);
-        res.status(200).json({
-            data: result.rows
-        });
+        res.status(200).json(result.rows);
     } catch(err) {
         res.status(400).json({
             error: err
@@ -94,9 +92,7 @@ const listFactoryDetails_get = async (req, res) => {
     }
     try {
         let result = await client.query(`SELECT * FROM public.factory_detail ORDER BY ${orderType} ASC`);
-        res.status(200).json({
-            data: result.rows
-        });
+        res.status(200).json(result.rows);
     } catch(err) {
         res.status(400).json({
             error: err

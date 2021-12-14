@@ -21,11 +21,10 @@ const checkToken_get = async (req, res) => {
                 });
             } else {
                 let user = await User.findById(decodedToken.id);
-                res.status(200).json({ data: {
-                        authority: user.authority,
-                        name: user.name,
-                        email: user.email
-                    }
+                res.status(200).json({
+                    authority: user.authority,
+                    name: user.name,
+                    email: user.email
                 });
             }
         })
@@ -42,14 +41,13 @@ const login_post = async (req, res) => {
     try {
         const user = await User.login(email, password);
         const token = createToken(user._id);
-        res.status(200).json({ data: {
+        res.status(200).json({
                 token,
                 expiresIn: maxAge * 1000, // in milliseconds
                 authority: user.authority,
                 name: user.name,
                 email: user.email
-            }
-        });
+            });
     } catch(err) {
         res.status(400).json({
             error: "Wrong email or password"
