@@ -86,7 +86,7 @@ const deleteFactory_delete = async (req, res) => {
 
 
 // factory-details database methods
-const listFactoryDetails_get = (req, res) => {
+const listFactoryDetails_get = async (req, res) => {
     const orderList = ['name', 'departmant', 'date_range', 'consumption', 'invoice', 'discount'];
     let orderType = 'id';
     if(req.body.orderType && orderList.includes(req.body.orderType)) {
@@ -104,7 +104,7 @@ const listFactoryDetails_get = (req, res) => {
     }
 }
 
-const addFactoryDetail_post = (req, res) => {
+const addFactoryDetail_post = async (req, res) => {
     // format of fields and values
     // fields -> (name, departmant, date_range, consumption, invoice, discount)
     const fields = Object.keys(req.body).join(',');
@@ -124,7 +124,7 @@ const addFactoryDetail_post = (req, res) => {
     }
 }
 
-const updateFactoryDetail_put = (req, res) => {
+const updateFactoryDetail_put = async (req, res) => {
     const body = req.body
     const id = body.id;
 
@@ -145,7 +145,7 @@ const updateFactoryDetail_put = (req, res) => {
     }
 }
 
-const deleteFactoryDetail_delete = (req, res) => {
+const deleteFactoryDetail_delete = async (req, res) => {
     const id = req.body.id;
 
     try {
