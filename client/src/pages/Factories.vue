@@ -1,66 +1,91 @@
 <template>
   <div class="factory-table">
-    <b-table striped hover :items="items" :fields="fields"></b-table>
+    <b-table striped hover :items="items" :fields="fields">
+        <template #cell(actions)="row">
+            <b-button @click="editFactory(row.item)" size="sm" class="mr-1">
+                Edit
+            </b-button>
+            <b-button  @click="deleteFactory(row.item.id)" size="sm">
+                Delete
+            </b-button>
+        </template>
+    </b-table>
+    <factory-edit-modal v-if="factoryInfoEdit" :factoryInfoEdit="factoryInfoEdit" />
   </div>
 </template>
 
 <script>
 import { serverUrl } from '../utils/serverUrl'
 import axios from 'axios'
+import FactoryEditModal from '../components/FactoryEditModal.vue'
+
   export default {
     data() {
       return {
-        // fields: [
-        //   {
-        //     key: 'last_name',
-        //     sortable: true
-        //   },
-        //   {
-        //     key: 'first_name',
-        //     sortable: true
-        //   },
-        //   {
-        //     key: 'age',
-        //     sortable: true
-        //   }
-        // ],
+        factoryInfoEdit: {},
         fields: [
-          {
+            {
             key: 'name',
             sortable: true
-          },
-          {
+            },
+            {
             key: 'start_date',
             sortable: true
-          },
-          {
+            },
+            {
             key: 'expiration_date',
             sortable: true
-          },
-          {
+            },
+            {
             key: 'employee_number',
             sortable: true
-          },
-          {
+            },
+            {
             key: 'special_member',
             sortable: true
-          }
+            },
+            {
+                key: 'actions',
+                label: 'Actions'
+            }
         ],
-        // items: [
-        //   { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-        //   { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-        //   { age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-        //   { age: 38, first_name: 'Jami', last_name: 'Carney' }
-        // ]
         items: []
       }
     },
+    methods: {
+        getFactoryList() {
+            axios.get(`${serverUrl}/list-factories`)
+            .then(res => {
+                this.items = res.data;
+            });
+        },
+        deleteFactory(id) {
+            axios({
+                method: 'delete',
+                url: `${serverUrl}/delete-factory`,
+                data: {
+                    id
+                }
+            })
+            .then(res => {
+                if(res.status === 200) {
+                    this.getFactoryList();
+                }
+            });
+        },
+        editFactory(row) {
+            this.factoryInfoEdit = row;
+            if(this.factoryInfoEdit) {
+                this.$bvModal.show('modal-edit-factory');
+            }
+        },
+        submitFactoryChanges() {}
+    },
     mounted() {
-        axios.get(`${serverUrl}/list-factories`)
-        .then(res => {
-            console.log(res);
-            this.items = res.data;
-        });
+        this.getFactoryList();
+    },
+    components: {
+        FactoryEditModal
     }
   }
 </script>
