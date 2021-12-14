@@ -1,5 +1,6 @@
 const client = require('../db');
 
+// factories database methods
 const listFactories_get = async (req, res) => {
     const orderList = ['name', 'start_date', 'expiration_date', 'employee_number', 'special_member'];
     let orderType = 'id';
@@ -22,7 +23,7 @@ const addFactory_post = async (req, res) => {
     // format of fields and values
     // fields -> (name, start_date, expiration_date, employee_number, special_member)
     const fields = Object.keys(req.body).join(',');
-    // values -> ('${name}', '${start_date}', '${expiration_date}', '${+employee_number}', '${special_member}');
+    // values -> ('${name}', '${start_date}', '${expiration_date}', '${employee_number}', '${special_member}');
     const values = Object.values(req.body).map(value => `'${value}'`).join(',');
 
     try {
@@ -44,8 +45,6 @@ const updateFactory_put = async (req, res) => {
 
     const fields = Object.keys(body).filter(key => key !== 'id');
     const updateArea = fields.map(key => `${key} = '${body[key]}'`).join(', ');
-
-    console.log(updateArea);
 
     try {
         let result = await client.query(`UPDATE public.factories SET ${updateArea} WHERE id=${id};`);
@@ -82,9 +81,100 @@ const deleteFactory_delete = async (req, res) => {
     }
 }
 
+
+// *********************************************************************************************************************************** //
+
+
+// factory-details database methods
+const listFactoryDetails_get = (req, res) => {
+    const orderList = ['name', 'departmant', 'date_range', 'consumption', 'invoice', 'discount'];
+    let orderType = 'id';
+    if(req.body.orderType && orderList.includes(req.body.orderType)) {
+        orderType = req.body.orderType;
+    }
+    try {
+        let result = await client.query(`SELECT * FROM public.factory_detail ORDER BY ${orderType} ASC`);
+        res.status(200).json({
+            data: result.rows
+        });
+    } catch(err) {
+        res.status(400).json({
+            error: err
+        });
+    }
+}
+
+const addFactoryDetail_post = (req, res) => {
+    // format of fields and values
+    // fields -> (name, departmant, date_range, consumption, invoice, discount)
+    const fields = Object.keys(req.body).join(',');
+    // values -> ('${name}', '${departmant}', '${date_range}', '${consumption}', '${invoice}, '${discount}');
+    const values = Object.values(req.body).map(value => `'${value}'`).join(',');
+
+    try {
+        let result = await client.query(`INSERT INTO public.factory_detail(${fields}) VALUES (${values});`);
+        res.status(200).json({
+            info: "Factory details received",
+            result
+        });
+    } catch(err) {
+        res.status(400).json({
+            error: err
+        });
+    }
+}
+
+const updateFactoryDetail_put = (req, res) => {
+    const body = req.body
+    const id = body.id;
+
+    const fields = Object.keys(body).filter(key => key !== 'id' & key !== 'name');
+    const updateArea = fields.map(key => `${key} = '${body[key]}'`).join(', ');
+
+    try {
+        let result = await client.query(`UPDATE public.factory_detail SET ${updateArea} WHERE id=${id};`);
+
+        res.status(200).json({
+            info: "Factory details updated",
+            result
+        });
+    } catch(err) {
+        res.status(400).json({
+            error: err
+        });
+    }
+}
+
+const deleteFactoryDetail_delete = (req, res) => {
+    const id = req.body.id;
+
+    try {
+        let result = await client.query(`DELETE FROM public.factory_detail WHERE id=${id}`);
+        
+        if(result.rowCount > 0) {
+            res.status(200).json({
+                info: "Factory details deleted",
+                result
+            });
+        } else {
+            throw 'This factory is not available in the list';
+        }
+    } catch(err) {
+        res.status(400).json({
+            error: err
+        });
+    }
+}
+
 module.exports = {
+    // export factories database methods
     listFactories_get,
     addFactory_post,
     updateFactory_put,
-    deleteFactory_delete
+    deleteFactory_delete,
+    // export factory-details database methods
+    listFactoryDetails_get,
+    addFactoryDetail_post,
+    updateFactoryDetail_put,
+    deleteFactoryDetail_delete
 }
