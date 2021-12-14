@@ -13,6 +13,7 @@ const createToken = (id) => {
 
 const checkToken_get = async (req, res) => {
     const token = req.body.token;
+    console.log(token);
     if(token) {
         jwt.verify(token, jwt_secret, async (err, decodedToken) => {
             if(err) {

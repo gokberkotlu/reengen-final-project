@@ -29,7 +29,7 @@
                                 <span>Settings</span>
                             </router-link>
                         </b-dropdown-item>
-                        <b-dropdown-item>Sign Out</b-dropdown-item>
+                        <b-dropdown-item @click="$store.dispatch('logout')">Sign Out</b-dropdown-item>
                     </b-nav-item-dropdown>
                     
                     <b-nav-item-dropdown text="Lang" right>

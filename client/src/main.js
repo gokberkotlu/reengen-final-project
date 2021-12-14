@@ -11,7 +11,7 @@ import { routes } from './routes'
 
 Vue.config.productionTip = false
 
-const router = new VueRouter({
+export const router = new VueRouter({
   routes,
   mode: 'history'
 });

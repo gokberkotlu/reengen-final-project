@@ -56,6 +56,10 @@
         methods: {
             goToRegisterPage() {
                 this.$router.push('/register');
+            },
+            onSubmit() {
+                console.log(this.form);
+                this.$store.dispatch('login', this.form);
             }
         }
     }

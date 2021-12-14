@@ -29,7 +29,7 @@ export default {
     },
     '$store.state.email': function() {
       console.log("email: " + this.$store.state.email)
-    },
+    }
   }
 }
 </script>

@@ -2,12 +2,13 @@ import axios from 'axios';
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { serverUrl } from '../utils/serverUrl'
+import { router } from '../main'
 
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-        token: null,
+        token: localStorage.getItem('token'),
         expiresIn: null,
         authority: null,
         name: null,
@@ -58,6 +59,7 @@ export const store = new Vuex.Store({
                 if(res.status === 200) {
                     commit('setToken', res.data.token);
                     localStorage.setItem("token", res.data.token);
+                    router.push('/factories');
                 }
             });
         },
@@ -69,13 +71,46 @@ export const store = new Vuex.Store({
             })
             .then(res => {
                 if(res.status === 200) {
+                    console.log(res.data);
                     commit('setToken', res.data.token);
                     commit('setExpiresIn', res.data.expiresIn);
                     commit('setAuthority', res.data.authority);
                     commit('setName', res.data.name);
                     commit('setEmail', res.data.email);
+                    localStorage.setItem("token", res.data.token);
+                    router.push('/factories');
                 }
             });
+        },
+        logout({ commit }) {
+            commit('setToken', null);
+            commit('setExpiresIn', null);
+            commit('setAuthority', null);
+            commit('setName', null);
+            commit('setEmail', null);
+            localStorage.removeItem("token");
+            router.push('/login');
         }
+        // checkToken({ commit }) {
+        //     const token = localStorage.getItem('token');
+        //     console.log(token);
+        //     if(token !== '') {
+        //         axios({
+        //             method: 'get',
+        //             url: `${serverUrl}/check-token`,
+        //             data: JSON.stringify({
+        //                 token: token
+        //             })
+        //         })
+        //         .then(res => {
+        //             console.log(res);
+        //             if(res.status === 200) {
+        //                 commit('setAuthority', res.data.authority);
+        //                 commit('setName', res.data.name);
+        //                 commit('setEmail', res.data.email);
+        //             }
+        //         });
+        //     }
+        // }
     },
 });

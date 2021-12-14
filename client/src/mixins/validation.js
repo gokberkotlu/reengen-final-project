@@ -20,7 +20,8 @@ export const validation = {
                 email
             },
             password: {
-                required
+                required,
+                minLength: minLength(8)
             }
         }
     },
