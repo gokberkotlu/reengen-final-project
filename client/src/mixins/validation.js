@@ -13,7 +13,7 @@ export const validation = {
             },
             name: {
                 required,
-                minLength: minLength(3)
+                minLength: minLength(8)
             },
             email: {
                 required,

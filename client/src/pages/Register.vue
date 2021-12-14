@@ -9,14 +9,14 @@
                         :state="validateState('name')" aria-describedby="name-input-live-feedback"></b-form-input>
 
                     <b-form-invalid-feedback id="name-input-live-feedback">
-                        This is a required field and must be at least 3 characters.
+                        This is a required field and must be at least 8 characters.
                     </b-form-invalid-feedback>
                 </b-form-group>
 
                 <!-- EMAIL -->
                 <b-form-group id="email-input-group" label="Email" label-for="email-input">
                     <b-form-input id="email-input" name="email-input" v-model="$v.form.email.$model"
-                        :state="validateState('email')" aria-describedby="email-input-live-feedback">
+                        :state="validateState('email')" type="email" aria-describedby="email-input-live-feedback">
                     </b-form-input>
 
                     <b-form-invalid-feedback id="email-input-live-feedback">
@@ -27,7 +27,7 @@
                 <!-- PASSWORD -->
                 <b-form-group id="password-input-group" label="Password" label-for="password-input">
                     <b-form-input id="password-input" name="password-input" v-model="$v.form.password.$model"
-                        :state="validateState('password')" aria-describedby="password-input-live-feedback">
+                        :state="validateState('password')" type="password" aria-describedby="password-input-live-feedback">
                     </b-form-input>
 
                     <b-form-invalid-feedback id="password-input-live-feedback">
@@ -81,6 +81,11 @@
                     password: null
                 }
             };
+        },
+        methods: {
+            onSubmit() {
+                this.$store.dispatch('signup', this.form);
+            }
         }
     };
 </script>

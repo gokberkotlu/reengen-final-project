@@ -62,8 +62,16 @@ const signup_post = async (req, res) => {
     try {
         const user = await User.create({ name, email, password, authority });
         const token = createToken(user._id);
-        res.status(200).json({ token });
+        // res.status(200).json({ token });
+        res.status(200).json({
+            token,
+            expiresIn: maxAge * 1000, // in milliseconds
+            authority: user.authority,
+            name: user.name,
+            email: user.email
+        });
     } catch(err) {
+        console.log(err);
         // 11000 unique error
         let errorResponse = {
             error: ""
