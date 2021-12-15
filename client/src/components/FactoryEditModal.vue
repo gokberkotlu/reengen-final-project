@@ -2,10 +2,10 @@
     <b-modal id="modal-edit-factory" title="BootstrapVue">
         <p class="my-4">Edit Factory Information</p>
 
-        <b-form @submit.prevent="e => submitFactoryChanges(e)">
+        <b-form @submit.prevent="editFactoryInformation()">
             <b-form-group id="input-group-factory-name" label="Name:" label-for="input-edit-factory-name">
                 <b-form-input id="input-edit-factory-name" type="text" placeholder="Enter name"
-                :value="factoryInfoEdit.name ? factoryInfoEdit.name : ''"
+                v-model="factoryInfoEdit.name"
                 required>
                 </b-form-input>
             </b-form-group>
@@ -44,19 +44,23 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { serverUrl } from '../utils/serverUrl'
+
 export default {
     props: ['factoryInfoEdit'],
-    mounted() {
-        console.log(this.factoryInfoEdit);
-    },
     methods: {
-        submitFactoryChanges(e) {
-            console.log(e.target.value);
-        }
-    },
-    watch: {
-        factoryInfoEdit(val) {
-            console.log(val);
+        editFactoryInformation() {
+            axios({
+                method: 'put',
+                url: `${serverUrl}/update-factory`,
+                data: this.factoryInfoEdit
+            })
+            .then(res => {
+                if(res.status === 200) {
+                    this.$emit('updated');
+                }
+            });
         }
     }
 }

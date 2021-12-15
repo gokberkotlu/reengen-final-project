@@ -10,7 +10,7 @@
             </b-button>
         </template>
     </b-table>
-    <factory-edit-modal v-if="factoryInfoEdit" :factoryInfoEdit="factoryInfoEdit" />
+    <factory-edit-modal v-if="factoryInfoEdit" :factoryInfoEdit="factoryInfoEdit" @updated="getFactoryList" />
   </div>
 </template>
 
@@ -57,6 +57,7 @@ import FactoryEditModal from '../components/FactoryEditModal.vue'
             axios.get(`${serverUrl}/list-factories`)
             .then(res => {
                 this.items = res.data;
+                this.$bvModal.hide('modal-edit-factory');
             });
         },
         deleteFactory(id) {
@@ -74,7 +75,7 @@ import FactoryEditModal from '../components/FactoryEditModal.vue'
             });
         },
         editFactory(row) {
-            this.factoryInfoEdit = row;
+            this.factoryInfoEdit = { ...row };
             if(this.factoryInfoEdit) {
                 this.$bvModal.show('modal-edit-factory');
             }
