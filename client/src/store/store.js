@@ -71,7 +71,6 @@ export const store = new Vuex.Store({
             })
             .then(res => {
                 if(res.status === 200) {
-                    console.log(res.data);
                     commit('setToken', res.data.token);
                     commit('setExpiresIn', res.data.expiresIn);
                     commit('setAuthority', res.data.authority);
@@ -92,27 +91,23 @@ export const store = new Vuex.Store({
             commit('setEmail', null);
             localStorage.removeItem("token");
             router.push('/login');
+        },
+        checkToken({ commit }) {
+            const token = localStorage.getItem('token');
+            if(token) {
+                axios({
+                    method: 'post',
+                    url: `${serverUrl}/check-token`,
+                    data: { token }
+                })
+                .then(res => {
+                    if(res.status === 200) {
+                        commit('setAuthority', res.data.authority);
+                        commit('setName', res.data.name);
+                        commit('setEmail', res.data.email);
+                    }
+                });
+            }
         }
-        // checkToken({ commit }) {
-        //     const token = localStorage.getItem('token');
-        //     console.log(token);
-        //     if(token !== '') {
-        //         axios({
-        //             method: 'get',
-        //             url: `${serverUrl}/check-token`,
-        //             data: JSON.stringify({
-        //                 token: token
-        //             })
-        //         })
-        //         .then(res => {
-        //             console.log(res);
-        //             if(res.status === 200) {
-        //                 commit('setAuthority', res.data.authority);
-        //                 commit('setName', res.data.name);
-        //                 commit('setEmail', res.data.email);
-        //             }
-        //         });
-        //     }
-        // }
     },
 });

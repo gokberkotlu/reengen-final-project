@@ -10,6 +10,7 @@ export const routes = [
     {
         path: '/',
         beforeEnter(to, from, next) {
+            store.dispatch('checkToken');
             if(!store.getters.getToken) {
                 next('/login');
             } else {
@@ -22,6 +23,7 @@ export const routes = [
         name: 'Login',
         component: Login,
         beforeEnter(to, from, next) {
+            store.dispatch('checkToken');
             if(!store.getters.getToken) {
                 next();
             } else {
@@ -34,6 +36,7 @@ export const routes = [
         name: 'Register',
         component: Register,
         beforeEnter(to, from, next) {
+            store.dispatch('checkToken');
             if(!store.getters.getToken) {
                 next();
             } else {
@@ -46,6 +49,7 @@ export const routes = [
         name: 'Factories',
         component: Factories,
         beforeEnter(to, from, next) {
+            store.dispatch('checkToken');
             if(store.getters.getToken) {
                 next();
             } else {
@@ -58,8 +62,7 @@ export const routes = [
         name: 'FactoryDetails',
         component: FactoryDetails,
         beforeEnter(to, from, next) {
-            console.log(store.getters.getToken);
-            next();
+            store.dispatch('checkToken');
             if(store.getters.getToken) {
                 next();
             } else {

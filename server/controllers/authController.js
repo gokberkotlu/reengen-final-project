@@ -11,9 +11,9 @@ const createToken = (id) => {
     });
 }
 
-const checkToken_get = async (req, res) => {
+const checkToken_post = async (req, res) => {
     const token = req.body.token;
-    console.log(token);
+    
     if(token) {
         jwt.verify(token, jwt_secret, async (err, decodedToken) => {
             if(err) {
@@ -89,7 +89,7 @@ const signup_post = async (req, res) => {
 }
 
 module.exports = {
-    checkToken_get,
+    checkToken_post,
     login_post,
     signup_post
 }
