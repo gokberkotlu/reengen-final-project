@@ -26,9 +26,15 @@
 
                 <button type="submit">Login</button>
 
-                <label class="mt-2">
-                    <input type="checkbox" checked="checked" name="remember"> Remember me
-                </label>
+                <b-form-checkbox
+                id="checkbox-remember"
+                v-model="remember"
+                name="checkbox-remember"
+                class="mt-2"
+                checked="checked"
+                >
+                Remember me
+                </b-form-checkbox>
 
                 <div @click="goToRegisterPage" style="background-color: #fff; text-align: right">
                     <div class="btn register-btn w-25">Register</div>
@@ -49,8 +55,9 @@
                     name: null,
                     email: null,
                     authority: null,
-                    password: null
-                }
+                    password: null,
+                },
+                remember: true
             };
         },
         methods: {
@@ -58,8 +65,12 @@
                 this.$router.push('/register');
             },
             onSubmit() {
-                console.log(this.form);
-                this.$store.dispatch('login', this.form);
+                this.$store.dispatch('login', { form: this.form, remember: this.remember});
+            }
+        },
+        watch: {
+            remember(val) {
+                console.log(val);
             }
         }
     }

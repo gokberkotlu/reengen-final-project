@@ -67,7 +67,7 @@ export const store = new Vuex.Store({
             axios({
                 method: 'post',
                 url: `${serverUrl}/login`,
-                data: payload
+                data: payload.form
             })
             .then(res => {
                 if(res.status === 200) {
@@ -77,7 +77,9 @@ export const store = new Vuex.Store({
                     commit('setAuthority', res.data.authority);
                     commit('setName', res.data.name);
                     commit('setEmail', res.data.email);
-                    localStorage.setItem("token", res.data.token);
+                    if(payload.remember) {
+                        localStorage.setItem("token", res.data.token);
+                    }
                     router.push('/factories');
                 }
             });
