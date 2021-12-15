@@ -91,7 +91,7 @@ const listFactoryDetails_get = async (req, res) => {
         orderType = req.body.orderType;
     }
     try {
-        let result = await client.query(`SELECT * FROM public.factory_detail ORDER BY ${orderType} ASC`);
+        let result = await client.query(`SELECT * FROM public.factory_details ORDER BY ${orderType} ASC`);
         res.status(200).json(result.rows);
     } catch(err) {
         res.status(400).json({
@@ -108,7 +108,7 @@ const addFactoryDetail_post = async (req, res) => {
     const values = Object.values(req.body).map(value => `'${value}'`).join(',');
 
     try {
-        let result = await client.query(`INSERT INTO public.factory_detail(${fields}) VALUES (${values});`);
+        let result = await client.query(`INSERT INTO public.factory_details(${fields}) VALUES (${values});`);
         res.status(200).json({
             info: "Factory details received",
             result
@@ -128,7 +128,7 @@ const updateFactoryDetail_put = async (req, res) => {
     const updateArea = fields.map(key => `${key} = '${body[key]}'`).join(', ');
 
     try {
-        let result = await client.query(`UPDATE public.factory_detail SET ${updateArea} WHERE id=${id};`);
+        let result = await client.query(`UPDATE public.factory_details SET ${updateArea} WHERE id=${id};`);
 
         res.status(200).json({
             info: "Factory details updated",
@@ -145,7 +145,7 @@ const deleteFactoryDetail_delete = async (req, res) => {
     const id = req.body.id;
 
     try {
-        let result = await client.query(`DELETE FROM public.factory_detail WHERE id=${id}`);
+        let result = await client.query(`DELETE FROM public.factory_details WHERE id=${id}`);
         
         if(result.rowCount > 0) {
             res.status(200).json({

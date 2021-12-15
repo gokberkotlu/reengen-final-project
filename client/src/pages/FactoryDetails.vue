@@ -42,20 +42,24 @@
                         sortable: true
                     },
                     {
-                        key: 'start_date',
+                        key: 'department',
                         sortable: true
                     },
                     {
-                        key: 'expiration_date',
+                        key: 'date_range',
                         sortable: true
                     },
                     {
-                        key: 'employee_number',
+                        key: 'consumption',
                         sortable: true
                     },
                     {
-                        key: 'special_member',
+                        key: 'invoice',
                         sortable: true
+                    },
+                    {
+                        key: 'discount',
+                        label: 'Discount'
                     },
                     {
                         key: 'actions',
@@ -79,7 +83,6 @@
                 axios.get(`${serverUrl}/list-factories`)
                     .then(res => {
                         this.factories = res.data.map(item => item.name);
-                        console.log(res.data.map(item => item.name));
                     });
             },
             deleteFactoryDetails(id) {

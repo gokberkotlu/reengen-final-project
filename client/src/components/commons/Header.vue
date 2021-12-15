@@ -2,7 +2,7 @@
     <div class="dashboard-nav-container">
         <b-navbar toggleable="lg" type="dark" variant="dark">
             <b-navbar-brand
-            @click="$router.push('/')"
+            @click="navigateToFactoriesPage"
             style="cursor: pointer;">
                 Dashboard
             </b-navbar-brand>
@@ -11,8 +11,8 @@
 
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav>
-                    <b-nav-item @click="$router.push('/factories')">Factories</b-nav-item>
-                    <b-nav-item @click="$router.push('/factory-details')">Factory Details</b-nav-item>
+                    <b-nav-item @click="navigateToFactoriesPage">Factories</b-nav-item>
+                    <b-nav-item @click="navigateToFactoryDetails">Factory Details</b-nav-item>
                 </b-navbar-nav>
 
                 <!-- Right aligned nav items -->
@@ -60,7 +60,20 @@
 
 <script>
 export default {
-    
+    methods: {
+        navigateToFactoriesPage() {
+            let path = '/factories';
+            if(this.$route.path !== path) {
+                this.$router.push(path);
+            }
+        },
+        navigateToFactoryDetails() {
+            let path = '/factory-details';
+            if(this.$route.path !== path) {
+                this.$router.push(path);
+            }
+        }
+    }
 }
 </script>
 
