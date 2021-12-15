@@ -3,6 +3,7 @@ import Register from './pages/Register'
 import Settings from './pages/Settings'
 import Factories from './pages/Factories'
 import FactoryDetails from './pages/FactoryDetails'
+import NotFound from './pages/NotFound'
 import { store } from './store/store'
 
 export const routes = [
@@ -70,5 +71,9 @@ export const routes = [
         path: '/settings',
         name: 'Settings',
         component: Settings
+    },
+    {
+        path: '*',
+        component: NotFound
     }
 ]
