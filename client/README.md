@@ -1,4 +1,4 @@
-# client
+# Factory Dashboard Client Side
 
 ## Project setup
 ```
