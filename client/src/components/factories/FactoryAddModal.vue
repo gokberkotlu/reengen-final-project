@@ -12,20 +12,20 @@
 
             <b-form-group id="input-group-factory-start-date-edit" label="Start Date:"
                 label-for="input-edit-factory-start-date-edit">
-                <b-form-input id="input-edit-factory-start-date-edit" type="text" placeholder="Enter start date"
+                <b-form-input id="input-edit-factory-start-date-edit" type="date" placeholder="Enter start date"
                 v-model="newFactoryData.start_date" required>
                 </b-form-input>
             </b-form-group>
 
             <b-form-group id="input-group-factory-expirationt-date-edit" label="Expiration Date:"
                 label-for="input-edit-factory-expiration-date-edit">
-                <b-form-input id="input-edit-factory-expiration-date-edit" type="text" placeholder="Enter expiration date"
+                <b-form-input id="input-edit-factory-expiration-date-edit" type="date" placeholder="Enter expiration date"
                 v-model="newFactoryData.expiration_date" required></b-form-input>
             </b-form-group>
 
             <b-form-group id="input-group-factory-employee-number-edit" label="Employee Number:"
                 label-for="input-edit-factory-employee-number-edit">
-                <b-form-input id="input-edit-factory-employee-number-edit" type="text" placeholder="Enter employee number"
+                <b-form-input id="input-edit-factory-employee-number-edit" type="number" placeholder="Enter employee number"
                 v-model="newFactoryData.employee_number" required></b-form-input>
             </b-form-group>
 

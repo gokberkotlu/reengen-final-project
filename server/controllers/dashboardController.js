@@ -135,6 +135,7 @@ const updateFactoryDetail_put = async (req, res) => {
             result
         });
     } catch(err) {
+        console.log(err);
         res.status(400).json({
             error: err
         });

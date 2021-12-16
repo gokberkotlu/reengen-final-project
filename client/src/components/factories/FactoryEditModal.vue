@@ -25,7 +25,7 @@
 
             <b-form-group id="input-group-factory-employee-number-edit" label="Employee Number:"
                 label-for="input-edit-factory-employee-number-edit">
-                <b-form-input id="input-edit-factory-employee-number-edit" type="text" placeholder="Enter employee number"
+                <b-form-input id="input-edit-factory-employee-number-edit" type="number" placeholder="Enter employee number"
                 v-model="factoryInfoEdit.employee_number" required></b-form-input>
             </b-form-group>
 

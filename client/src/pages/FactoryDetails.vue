@@ -19,7 +19,7 @@
             class="btn btn-success">Add</b-button>
         </div>
 
-        <factory-details-edit-modal :factories="factories" v-if="factoryInfoEdit" :factoryDetailsInfoEdit="factoryInfoEdit" @updated="getFactoryDetailsList" />
+        <factory-details-edit-modal :factories="factories" v-if="factoryDetailsInfoEdit" :factoryDetailsInfoEdit="factoryDetailsInfoEdit" @updated="getFactoryDetailsList" />
 
         <factory-details-add-modal :factories="factories" @updated="getFactoryDetailsList" />
     </div>
@@ -36,7 +36,7 @@
     export default {
         data() {
             return {
-                factoryInfoEdit: {},
+                factoryDetailsInfoEdit: {},
                 fields: [{
                         key: 'name',
                         sortable: true
@@ -95,15 +95,15 @@
                     })
                     .then(res => {
                         if (res.status === 200) {
-                            this.getFactoryList();
+                            this.getFactoryDetailsList();
                         }
                     });
             },
             editFactoryDetails(row) {
-                this.factoryInfoEdit = {
+                this.factoryDetailsInfoEdit = {
                     ...row
                 };
-                if (this.factoryInfoEdit) {
+                if (this.factoryDetailsInfoEdit) {
                     this.$bvModal.show('modal-edit-factory-details');
                 }
             },
