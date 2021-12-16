@@ -24,10 +24,11 @@
 
 - HTML
 - CSS
-- [BootstrapVue](https://bootstrap-vue.org/)
 - [VueJs](https://vuejs.org/)
+- [Vuex](https://vuex.vuejs.org/)
 - [VueRouter](https://router.vuejs.org/)
 - [Vuelidate](https://vuelidate.js.org/)
+- [BootstrapVue](https://bootstrap-vue.org/)
 - [NodeJs](https://nodejs.org/)
 - [ExpressJs](https://expressjs.com/)
 - [MongoDB](https://www.mongodb.com/)
