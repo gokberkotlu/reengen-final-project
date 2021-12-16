@@ -61,6 +61,7 @@ export default {
             .then(res => {
                 if(res.status === 200) {
                     this.$emit('updated');
+                    this.newFactoryData = {}
                 }
             });
         }

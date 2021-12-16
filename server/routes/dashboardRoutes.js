@@ -13,8 +13,8 @@ router.delete('/delete-factory', dashboardController.deleteFactory_delete);
 // factory-details database routes
 // id, name, departmant, date_range, consumption, invoice, discount
 router.get('/list-factory-details', dashboardController.listFactoryDetails_get);
-router.post('/add-factory-details', dashboardController.addFactoryDetail_post);
-router.put('/update-factory-details', dashboardController.updateFactoryDetail_put);
-router.delete('/delete-factory-details', dashboardController.deleteFactoryDetail_delete);
+router.post('/add-factory-details', dashboardController.addFactoryDetails_post);
+router.put('/update-factory-details', dashboardController.updateFactoryDetails_put);
+router.delete('/delete-factory-details', dashboardController.deleteFactoryDetails_delete);
 
 module.exports = router;

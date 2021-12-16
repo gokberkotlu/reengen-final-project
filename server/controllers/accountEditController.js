@@ -63,7 +63,6 @@ const editAccount_patch = async (req, res) => {
                         user.authority = authority;
                         // set password again to not to get validation error because of sending hashed password to User model
                         user.password = password;
-                        console.log(user);
                         await user.save();
                         res.status(200).json({
                             info: "Account settings changed"

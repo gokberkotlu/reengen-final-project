@@ -100,7 +100,7 @@ const listFactoryDetails_get = async (req, res) => {
     }
 }
 
-const addFactoryDetail_post = async (req, res) => {
+const addFactoryDetails_post = async (req, res) => {
     // format of fields and values
     // fields -> (name, departmant, date_range, consumption, invoice, discount)
     const fields = Object.keys(req.body).join(',');
@@ -120,11 +120,12 @@ const addFactoryDetail_post = async (req, res) => {
     }
 }
 
-const updateFactoryDetail_put = async (req, res) => {
+const updateFactoryDetails_put = async (req, res) => {
     const body = req.body
+    console.log(body);
     const id = body.id;
 
-    const fields = Object.keys(body).filter(key => key !== 'id' & key !== 'name');
+    const fields = Object.keys(body).filter(key => key !== 'id');
     const updateArea = fields.map(key => `${key} = '${body[key]}'`).join(', ');
 
     try {
@@ -142,7 +143,7 @@ const updateFactoryDetail_put = async (req, res) => {
     }
 }
 
-const deleteFactoryDetail_delete = async (req, res) => {
+const deleteFactoryDetails_delete = async (req, res) => {
     const id = req.body.id;
 
     try {
@@ -171,7 +172,7 @@ module.exports = {
     deleteFactory_delete,
     // export factory-details database methods
     listFactoryDetails_get,
-    addFactoryDetail_post,
-    updateFactoryDetail_put,
-    deleteFactoryDetail_delete
+    addFactoryDetails_post,
+    updateFactoryDetails_put,
+    deleteFactoryDetails_delete
 }
