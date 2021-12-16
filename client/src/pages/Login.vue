@@ -67,11 +67,6 @@
             onSubmit() {
                 this.$store.dispatch('login', { form: this.form, remember: this.remember});
             }
-        },
-        watch: {
-            remember(val) {
-                console.log(val);
-            }
         }
     }
 </script>

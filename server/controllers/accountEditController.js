@@ -17,15 +17,21 @@ const editPassword_patch = async (req, res) => {
                 var user = await User.findById(decodedToken.id);
                 const auth = await compare(currentPassword, user.password);
                 // if current password matches before setting new one
-                try {
-                    user.password = newPassword;
-                    await user.save();
-                    res.status(200).json({
-                        info: "Password changed"
-                    });
-                } catch(err) {
+                if(auth) {
+                    try {
+                        user.password = newPassword;
+                        await user.save();
+                        res.status(200).json({
+                            info: "Password changed"
+                        });
+                    } catch(err) {
+                        res.status(400).json({
+                            error: err?.errors?.password?.message
+                        });
+                    }
+                } else {
                     res.status(400).json({
-                        error: err?.errors?.password?.message
+                        error: "Password is not valid"
                     });
                 }
             }

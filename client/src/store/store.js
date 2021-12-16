@@ -92,10 +92,10 @@ export const store = new Vuex.Store({
             localStorage.removeItem("token");
             router.push('/login');
         },
-        checkToken({ commit }) {
+        async checkToken({ commit }) {
             const token = localStorage.getItem('token');
             if(token) {
-                axios({
+                await axios({
                     method: 'post',
                     url: `${serverUrl}/check-token`,
                     data: { token }

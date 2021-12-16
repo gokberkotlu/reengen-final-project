@@ -22,6 +22,14 @@ export const validation = {
             password: {
                 required,
                 minLength: minLength(8)
+            },
+            currentPassword: {
+                required,
+                minLength: minLength(8)
+            },
+            newPassword: {
+                required,
+                minLength: minLength(8)
             }
         }
     },

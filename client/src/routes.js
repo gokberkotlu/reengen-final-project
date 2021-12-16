@@ -73,7 +73,15 @@ export const routes = [
     {
         path: '/settings',
         name: 'Settings',
-        component: Settings
+        component: Settings,
+        async beforeEnter(to, from, next) {
+            await store.dispatch('checkToken');
+            if(store.getters.getToken) {
+                next();
+            } else {
+                next('/login');
+            }
+        }
     },
     {
         path: '*',

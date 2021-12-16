@@ -85,6 +85,10 @@
                     .then(res => {
                         if (res.status === 200) {
                             this.getFactoryList();
+                            this.$bvToast.toast("Factory information deleted", {
+                                title: 'Success',
+                                autoHideDelay: 3000
+                            })
                         }
                     });
             },
