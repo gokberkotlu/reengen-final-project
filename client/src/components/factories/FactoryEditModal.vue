@@ -12,15 +12,15 @@
 
             <b-form-group id="input-group-factory-start-date-edit" label="Start Date:"
                 label-for="input-edit-factory-start-date-edit">
-                <b-form-input id="input-edit-factory-start-date-edit" type="text" placeholder="Enter start date"
+                <b-form-datepicker id="input-edit-factory-start-date-edit" type="date" placeholder="Enter start date"
                 v-model="factoryInfoEdit.start_date" required>
-                </b-form-input>
+                </b-form-datepicker>
             </b-form-group>
 
             <b-form-group id="input-group-factory-expiration-date-edit" label="Expiration Date:"
                 label-for="input-edit-factory-expiration-date-edit">
-                <b-form-input id="input-edit-factory-expiration-date-edit" type="text" placeholder="Enter expiration date"
-                v-model="factoryInfoEdit.expiration_date" required></b-form-input>
+                <b-form-datepicker id="input-edit-factory-expiration-date-edit" type="date" placeholder="Enter expiration date"
+                v-model="factoryInfoEdit.expiration_date" required></b-form-datepicker>
             </b-form-group>
 
             <b-form-group id="input-group-factory-employee-number-edit" label="Employee Number:"

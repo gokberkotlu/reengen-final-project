@@ -89,6 +89,10 @@
                     });
             },
             editFactory(row) {
+                console.log(row);
+                row.start_date = new Date(row.start_date);
+                row.expiration_date = new Date(row.expiration_date);
+                console.log(row);
                 this.factoryInfoEdit = {
                     ...row
                 };
