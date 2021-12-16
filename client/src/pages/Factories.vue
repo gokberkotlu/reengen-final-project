@@ -89,13 +89,11 @@
                     });
             },
             editFactory(row) {
-                console.log(row);
-                row.start_date = new Date(row.start_date);
-                row.expiration_date = new Date(row.expiration_date);
-                console.log(row);
                 this.factoryInfoEdit = {
                     ...row
                 };
+                this.factoryInfoEdit.start_date = new Date(this.factoryInfoEdit.start_date);
+                this.factoryInfoEdit.expiration_date = new Date(this.factoryInfoEdit.expiration_date);
                 if (this.factoryInfoEdit) {
                     this.$bvModal.show('modal-edit-factory');
                 }
